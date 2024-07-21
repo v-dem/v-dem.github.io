@@ -1,0 +1,48 @@
+<body>
+    <a class="device-dependent-link"
+        href="https://tatafoods.com.au/"
+        data-googleplay-href="https://play.google.com/store/apps/details?id=com.tatafoods.vr"
+        data-appstore-href="https://apps.apple.com/us/app/tata-foods/id6483254433">TaTa Foods</a>
+    | <a class="device-dependent-link"
+        href="https://tataride.com.au/"
+        data-googleplay-href="https://play.google.com/store/apps/details?id=com.tata.ride.customer"
+        data-appstore-href="https://apps.apple.com/us/app/tata-ride/id6480097389">TaTa Ride</a>
+
+    <hr />
+
+    <span id="userAgent"></span>
+
+    <noscript>
+        JavaScript disabled in this browser.
+    </noscript>
+</body>
+
+<script type="application/javascript">
+    document.write('JS test');
+
+    (function(window, document, undefined) {
+        const USER_AGENT = window.navigator.userAgent || window.navigator.vendor || window.opera;
+
+        document.getElementById('userAgent').textContent = USER_AGENT;
+
+        // console.log(USER_AGENT);
+        // console.log(window.navigator.platform);
+        // console.log(window.navigator.standalone);
+
+        let linkSelection = null;
+        if (/android/i.test(USER_AGENT)) {
+            linkSelection = 'googleplay';
+        } else if ((/iPad|iPhone|iPod/.test(USER_AGENT) || USER_AGENT.includes('Mac') && 'ontouchend' in document)
+            && !window.MSStream)
+        {
+            linkSelection = 'appstore';
+        }
+
+        if (linkSelection) {
+            document.querySelectorAll('.device-dependent-link').forEach(function(linkEl) {
+                linkEl.href = linkEl.dataset[linkSelection + 'Href'];
+            });
+        }
+    })(window, document);
+</script>
+
